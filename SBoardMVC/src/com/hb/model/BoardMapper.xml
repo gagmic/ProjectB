@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.hb.model.BoardMapper">
+	
+	<select id="getBoardList" resultType="com.hb.vo.BoardVO"
+	parameterType="com.hb.vo.NaviVO">
+		SELECT NUM, NO, SUBJECT, WRITER, REGDATE
+		FROM(
+			SELECT
+				ROWNUM AS NUM, NO, SUBJECT, WRITER, REGDATE
+			FROM
+  				BOARDS) A
+		WHERE
+			NUM BETWEEN #{beginRecode} AND #{endRecode}
+		ORDER BY 
+			NUM ASC
+	</select>
+	
+	<select id="getTotalRecode" resultType="int">
+		SELECT COUNT(*) FROM BOARDS
+	</select>
+	
+	<select id="getBoardDetail" parameterType="com.hb.vo.BoardVO" 
+	resultType="com.hb.vo.BoardVO">
+		SELECT 
+		NO, SUBJECT, WRITER, PASSWORD, 
+		READHIT, REGDATE, GROUPNO, 
+		ORDERNO, DEPTH, CONTENT, FILENAME, FILEPATH, FILESIZE
+		FROM 
+		BOARDS 
+		WHERE NO = #{no} 	
+	</select>
+			
+	<insert id="insertBoard" parameterType="com.hb.vo.BoardVO">
+		INSERT
+		INTO 
+		BOARDS(
+		NO, SUBJECT, WRITER, PASSWORD,
+		CONTENT, FILEPATH, FILENAME, FILESIZE
+		) VALUES(
+		MYBOARD.NEXTVAL, #{subject}, #{writer},
+		#{password}, #{content}, #{filepath}, #{filename},
+		#{filesize} )
+	</insert>
+	
+	<update id="modifyBoard" parameterType="com.hb.vo.BoardVO">
+		 UPDATE 
+		 BOARDS 
+		 SET 
+		 SUBJECT = #{subject} , CONTENT = #{content} 
+		 WHERE 
+		 NO = #{no} 
+	</update>
+	
+	<delete id="deleteBoard" parameterType="com.hb.vo.BoardVO">
+		DELETE FROM BOARDS WHERE NO = #{no}
+	</delete>
+	
+</mapper>
