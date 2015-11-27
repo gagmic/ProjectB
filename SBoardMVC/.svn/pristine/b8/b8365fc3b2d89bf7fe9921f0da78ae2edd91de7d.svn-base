@@ -58,46 +58,4 @@
 		DELETE FROM BOARDS WHERE NO = #{no}
 	</delete>
 	
-	<select id="getReplyList" parameterType="com.hb.vo.ReplyVO"
-	resultType="com.hb.vo.ReplyVO">
-		SELECT
-			ID, WRITER, REGDATE, CONTENT, PARENTID, 
-			GROUPID, GROUPCNT, DEPTH
-		FROM
-			REPLY
-		WHERE
-			PARENTID = #{parentid}
-		ORDER BY
-			GROUPID ASC, GROUPCNT ASC
-	</select>
-	
-	<delete id="deleteReply" parameterType="com.hb.vo.ReplyVO">
-		DELETE FROM REPLY WHERE ID = #{id}
-	</delete>
-	
-	<insert id="insertReply" parameterType="com.hb.vo.ReplyVO">
-		INSERT INTO REPLY(
-			ID,WRITER,REGDATE,CONTENT,PARENTID,GROUPID)
-		VALUES(MYREPLY.NEXTVAL,#{writer},sysdate,#{content},
-		#{parentid},MYREPLY.CURRVAL)
-	</insert>
-	
-	<insert id="insertReply2" parameterType="com.hb.vo.ReplyVO">
-		INSERT INTO REPLY(
-			ID,WRITER,REGDATE,CONTENT,PARENTID,GROUPID,GROUPCNT,DEPTH)
-		VALUES(MYREPLY.NEXTVAL,#{writer},sysdate,#{content},
-		#{parentid},#{groupid},#{groupcnt},#{depth})
-	</insert>
-	
-	<update id="shiftReply" parameterType="com.hb.vo.ReplyVO">
-		UPDATE REPLY SET GROUPCNT=(GROUPCNT+1) 
-		WHERE GROUPCNT >= #{groupcnt}
-		AND GROUPID = #{groupid}
-	</update>
-	
-	<update id="modifyReply" parameterType="com.hb.vo.ReplyVO">
-		UPDATE REPLY SET CONTENT=#{content}
-		WHERE ID = #{id}
-	</update>
-	
 </mapper>
