@@ -57,14 +57,12 @@ src="/SBoardMVC/resources/js/jquery-2.1.4.min.js"></script>
 </head>
 <body>
 		<table>
-<thead>
+<!-- <thead>
 	<tr>
-		<th>번호</th>
-		<th>제목</th>
-		<th>글쓴이</th>
-		<th>날짜</th>
+		<th>이름</th>
+		<th>작성일</th>
 	</tr>
-</thead>
+</thead> -->
 <tbody>	
 	<c:forEach var="reply" items="${list}">
 		<tr>

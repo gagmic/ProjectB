@@ -30,4 +30,9 @@ public class ReplyService {
 				template.getMapper(BoardMapper.class);
 		mapper.insertReply(reply);
 	}
+	public void modifyReply(ReplyVO reply){
+		BoardMapper mapper =
+				template.getMapper(BoardMapper.class);
+		mapper.modifyReply(reply);
+	}
 }

@@ -16,4 +16,5 @@ public interface BoardMapper {
 	public List<ReplyVO> getReplyList(ReplyVO reply);
 	public void deleteReply(ReplyVO reply);
 	public void insertReply(ReplyVO reply);
+	public void modifyReply(ReplyVO reply);
 }
